@@ -41,13 +41,18 @@ architecture Behavioral of clock_div is
     signal counter : std_logic_vector(26 downto 0) := (others => '0');
 begin
     process (CLK_IN)
-    begin
+    begin 
         if(rising_edge(CLK_IN)) then
-            if (unsigned(counter) < 124999999) then
+            if (unsigned(counter) < 62499999) then
                counter <= std_logic_vector(unsigned(counter) + 1);
             else
                counter <= (others => '0');
             end if;
+        end if;
+        if (unsigned(counter) < 31250000) then
+            CLK_OUT <= '1';            
+        else
+            CLK_OUT <= '0';              
         end if;
     end process;
 
