@@ -30,7 +30,10 @@ use IEEE.STD_LOGIC_1164.ALL;
 -- any Xilinx leaf cells in this code.
 --library UNISIM;
 --use UNISIM.VComponents.all;
-
+library ieee;
+    use ieee.std_logic_1164.all;
+    use ieee.numeric_std.all;
+    
 entity debounce_tb is
 --  Port ( );
 end debounce_tb;
@@ -43,14 +46,39 @@ architecture testbench of debounce_tb is
     component debounce is
         port(
         
-            clk  : in std_logic;        -- 125 Mhz clock
-            sw0  : in std_logic;        -- switch, '1' = on
+            btn  : in std_logic;        -- 125 Mhz clock
+            clk  : in std_logic;        -- switch, '1' = on
             
-            led0 : out std_logic        -- led, '1' = on
+            dbnc : out std_logic        -- led, '1' = on
         
         );
     end component;
 begin
-
-
+    clk_gen_proc: process
+    begin
+    
+        wait for 4 ns;
+        tb_clk <= '1';
+        
+        wait for 4 ns;
+        tb_clk <= '0';
+    
+    end process clk_gen_proc;
+    
+    -- flip the switch high after 1ms
+    switch_proc: process
+    begin
+    
+        wait for 1 ms;
+        tb_sw0 <= '1';
+    
+    end process switch_proc;
+    dut : debounce
+        port map (
+        
+            clk  => tb_clk,
+            btn  => tb_sw0,
+            dbnc => tb_led0
+        
+        );
 end testbench;

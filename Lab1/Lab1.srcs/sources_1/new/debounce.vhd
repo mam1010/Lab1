@@ -52,7 +52,10 @@ begin
           if(tmp_sig(0) = '1') then
             counter <= std_logic_vector(unsigned(counter) + 1);
           end if;
-       end if;
+          if(unsigned(counter) = 3) then
+            dbnc <= tmp_sig(0);
+          end if;
+        end if;
     end process;
 
 end Behavioral;

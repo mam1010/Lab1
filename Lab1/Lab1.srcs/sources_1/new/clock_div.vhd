@@ -8,7 +8,7 @@
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
--- Description: 
+-- Description: signal counter : std_logic_vector(26 downto 0) := (others => '0');
 -- 
 -- Dependencies: 
 -- 
