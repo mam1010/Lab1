@@ -39,21 +39,24 @@ entity debounce is
 end debounce;
 
 architecture Behavioral of debounce is
-    signal tmp_sig : std_logic_vector(1 downto 0);
-    signal counter : std_logic_vector(1 downto 0);
+    signal counter : std_logic_vector(22 downto 0) := (others => '0');
 begin
     process(clk)
     begin
         if clk'event and clk='1' then
-          for i in 0 to 0 loop
-             tmp_sig(i+1) <= tmp_sig(i);
-          end loop;
-          tmp_sig(0) <= btn;
-          if(tmp_sig(0) = '1') then
-            counter <= std_logic_vector(unsigned(counter) + 1);
+          if(btn='1') then
+            if(unsigned(counter)>=2500000) then
+                counter <= counter;
+            else
+                counter <= std_logic_vector(unsigned(counter) + 1);
+            end if;
+          else 
+            counter <= "00000000000000000000000";
           end if;
-          if(unsigned(counter) = 3) then
-            dbnc <= tmp_sig(0);
+          if(unsigned(counter)>=2500000) then
+            dbnc <= '1';
+          else 
+            dbnc <= '0';
           end if;
         end if;
     end process;

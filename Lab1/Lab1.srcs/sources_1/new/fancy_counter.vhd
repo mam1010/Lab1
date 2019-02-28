@@ -45,8 +45,8 @@ entity fancy_counter is
 end fancy_counter;
 
 architecture Behavioral of fancy_counter is
-    signal reg : STD_LOGIC_VECTOR (3 downto 0);
-    signal direct : STD_LOGIC;
+    signal reg : STD_LOGIC_VECTOR (3 downto 0) := (others => '0');
+    signal direct : STD_LOGIC  := '0';
     signal counter : std_logic_vector(3 downto 0) := (others => '0');
 begin
     process(clk)
@@ -56,28 +56,29 @@ begin
                 if(rst = '1') then
                     cnt <= "0000";
                     counter <= "0000";
-                end if;
-                if(clk_en = '1') then
-		    if(updn = '1') then
-                        direct <= dir;
-		    end if;
-                    if(ld = '1') then
+                else 
+                    if(clk_en = '1') then
+		              if(updn = '1') then
+                            direct <= dir;
+		              end if;
+                      if(ld = '1') then
                         reg <= val;
-                    end if;
-                    if(direct = '1') then
+                      end if;
+                      if(direct = '1') then
                         if(counter = reg) then
                             counter <= "0000";
                         else
                             counter <= std_logic_vector(unsigned(counter) + 1);
                         end if;
-                    else
+                      else
                         if(counter = "0000") then
                             counter <= reg;
                         else
                             counter <= std_logic_vector(unsigned(counter) - 1);
                         end if;
+                      end if;
+                      cnt <= counter; 
                     end if;
-                    cnt <= counter; 
                 end if;
             end if;
         end if;

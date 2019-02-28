@@ -100,6 +100,6 @@ begin
                 ld => u4_out,
                 rst => u1_out,
                 updn => u3_out,
-                val => sw(3 downto 1),
+                val => sw,
                 cnt => led);
 end rt1_structural;
