@@ -51,13 +51,13 @@ architecture Behavioral of fancy_counter is
 begin
     process(clk)
     begin
-        if(rising_edge(CLK)) then
+        if(rising_edge(clk)) then
             if(en = '1') then
                 if(rst = '1') then
                     cnt <= "0000";
                     counter <= "0000";
                 else 
-                    if(clk_en = '1') then
+                    if(clk_en='1') then
 		              if(updn = '1') then
                             direct <= dir;
 		              end if;
@@ -79,8 +79,11 @@ begin
                       end if;
                       cnt <= counter; 
                     end if;
+                    
                 end if;
+                
             end if;
+            cnt <= counter; 
         end if;
     end process;
 

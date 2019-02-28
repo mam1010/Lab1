@@ -49,7 +49,7 @@ begin
                counter <= (others => '0');
             end if;
         end if;
-        if (unsigned(counter) < 31250000) then
+        if (unsigned(counter) = 31250000) then
             CLK_OUT <= '1';            
         else
             CLK_OUT <= '0';              
