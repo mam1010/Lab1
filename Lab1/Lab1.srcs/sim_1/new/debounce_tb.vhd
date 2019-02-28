@@ -71,6 +71,9 @@ begin
     
         wait for 1 ms;
         tb_sw0 <= '1';
+        
+        wait for 30 ms;
+        tb_sw0 <= '0';
     
     end process switch_proc;
     dut : debounce
